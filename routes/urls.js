@@ -3,7 +3,7 @@ var router = express.Router();
 const urlService = require("../services/url.service");
 
 // POST /urls
-router.post("/", async function (req, res) {
+router.post("/urls", async function (req, res) {
 	try {
 		const { long_url, short_url, expireInNumber: expire_in_number } = req.body;
 
