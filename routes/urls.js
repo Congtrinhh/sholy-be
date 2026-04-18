@@ -21,13 +21,13 @@ router.post("/urls", async function (req, res) {
 });
 
 // GET /health-check
-router.get("/health-check", async function (req, res) {
-	try {
-		return res.status(200).json("the app is running well");
-	} catch (err) {
-		return res.status(500).json({ error: err.message });
-	}
-});
+// router.get("/health-check", async function (req, res) {
+// 	try {
+// 		return res.status(200).json("the app is running well");
+// 	} catch (err) {
+// 		return res.status(500).json({ error: err.message });
+// 	}
+// });
 
 // GET /:short_url
 router.get("/:short_url", async function (req, res) {
