@@ -24,7 +24,9 @@ jobs:
               with:
                   context: .
                   push: true
-                  tags: ${{ secrets.DOCKERHUB_USERNAME }}/sholy-backend:latest
+                  tags: |
+                      ${{ secrets.DOCKERHUB_USERNAME }}/sholy-backend:latest
+                      ${{ secrets.DOCKERHUB_USERNAME }}/sholy-backend:${{ github.sha }}
 
             - name: Log in to Azure
               uses: azure/login@v1
