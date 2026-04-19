@@ -38,4 +38,4 @@ jobs:
               with:
                   resourceGroup: sholy-rg
                   containerAppName: sholy-backend
-                  imageToDeploy: docker.io/${{ secrets.DOCKERHUB_USERNAME }}/sholy-backend:latest
+                  imageToDeploy: docker.io/${{ secrets.DOCKERHUB_USERNAME }}/sholy-backend:${{ github.sha }}
