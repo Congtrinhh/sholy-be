@@ -5,6 +5,9 @@ const connectDB = require("./config/db");
 const urlsRouter = require("./routes/urls");
 
 const logger = require("./config/logger");
+
+logger.info("App.js loaded");
+
 const tracingMiddleware = require("./middleware/tracing");
 const requestLogger = require("./middleware/requestLogger");
 const { notFoundHandler, globalErrorHandler } = require("./middleware/errorHandler");
