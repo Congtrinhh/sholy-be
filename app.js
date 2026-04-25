@@ -6,7 +6,8 @@ const urlsRouter = require("./routes/urls");
 
 const logger = require("./config/logger");
 
-logger.info("App.js loaded");
+logger.info("logger: App.js loaded");
+console.log("console log: App.js loaded");
 
 const tracingMiddleware = require("./middleware/tracing");
 const requestLogger = require("./middleware/requestLogger");
