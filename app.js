@@ -28,12 +28,16 @@ app.use("", urlsRouter);
 app.use(notFoundHandler);
 app.use(globalErrorHandler);
 
-connectDB();
+const PORT = process.env.PORT || 3000;
 
-logger.info("Server started", {
-	port: process.env.PORT || 3000,
-	environment: process.env.NODE_ENV,
-	node_version: process.version,
+connectDB().then(() => {
+	app.listen(PORT, () => {
+		logger.info("Server started", {
+			port: PORT,
+			environment: process.env.NODE_ENV,
+			node_version: process.version,
+		});
+	});
 });
 
-module.exports = app; // ← no app.listen here
+module.exports = app;
