@@ -9,7 +9,7 @@ router.post("/urls", async function (req, res) {
 		const { long_url, short_url, expireInNumber: expire_in_number } = req.body;
 
 		if (!long_url) {
-			logger.warning("Long url is required", {
+			logger.warn("Long url is required", {
 				requestIp: req.ip,
 			});
 			return res.status(400).json({ error: "long_url is required" });
@@ -34,7 +34,7 @@ router.get("/:short_url", async function (req, res) {
 	try {
 		const longUrl = await urlService.getLongUrl(req.params.short_url);
 		if (!longUrl) {
-			logger.warning("Couldn't find long url", {
+			logger.warn("Couldn't find long url", {
 				requestIp: req.ip,
 			});
 			return res.status(404).json({ error: "Invalid short URL" });
