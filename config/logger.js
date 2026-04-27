@@ -14,10 +14,6 @@ const logger = winston.createLogger({
 				message: info.message,
 				...info, // spread rest of metadata
 			};
-			// remove duplicated fields added by printf
-			delete log.timestamp;
-			delete log.message;
-			delete log.level;
 			return JSON.stringify(log);
 		}),
 	),

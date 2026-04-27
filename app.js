@@ -4,6 +4,7 @@ const cors = require("cors");
 const connectDB = require("./config/db");
 const urlsRouter = require("./routes/urls");
 
+// application logs
 const logger = require("./config/logger");
 
 logger.info("logger: App.js loaded");
@@ -12,6 +13,16 @@ console.log("console log: App.js loaded[updated]");
 const tracingMiddleware = require("./middleware/tracing");
 const requestLogger = require("./middleware/requestLogger");
 const { notFoundHandler, globalErrorHandler } = require("./middleware/errorHandler");
+
+// APM
+const appInsights = require("applicationinsights");
+appInsights
+	.setup(process.env.APPLICATIONINSIGHTS_CONNECTION_STRING)
+	.setAutoDependencyCorrelation(true)
+	.setAutoCollectRequests(true)
+	.setAutoCollectPerformance(true)
+	.setAutoCollectExceptions(true)
+	.start();
 
 const app = express();
 
