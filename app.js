@@ -1,3 +1,13 @@
+// APM - must be placed first, before require("dotenv").config();
+const appInsights = require("applicationinsights");
+appInsights
+	.setup(process.env.APPLICATIONINSIGHTS_CONNECTION_STRING)
+	.setAutoDependencyCorrelation(true)
+	.setAutoCollectRequests(true)
+	.setAutoCollectPerformance(true)
+	.setAutoCollectExceptions(true)
+	.start();
+
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
@@ -13,16 +23,6 @@ console.log("console log: App.js loaded[updated]");
 const tracingMiddleware = require("./middleware/tracing");
 const requestLogger = require("./middleware/requestLogger");
 const { notFoundHandler, globalErrorHandler } = require("./middleware/errorHandler");
-
-// APM
-const appInsights = require("applicationinsights");
-appInsights
-	.setup(process.env.APPLICATIONINSIGHTS_CONNECTION_STRING)
-	.setAutoDependencyCorrelation(true)
-	.setAutoCollectRequests(true)
-	.setAutoCollectPerformance(true)
-	.setAutoCollectExceptions(true)
-	.start();
 
 const app = express();
 
