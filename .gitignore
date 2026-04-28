@@ -4,4 +4,5 @@ bin
 .env.*
 !.env.example
 
-tests/performance
+# tests/performance
+.vscode

@@ -1,6 +1,6 @@
 var express = require("express");
 const logger = require("../config/logger");
-var router = express.Router();
+const router = express.Router();
 const urlService = require("../services/url.service");
 
 // POST /urls

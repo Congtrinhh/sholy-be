@@ -13,6 +13,7 @@ const express = require("express");
 const cors = require("cors");
 const connectDB = require("./config/db");
 const urlsRouter = require("./routes/urls");
+const indexRouter = require("./routes/index");
 
 // application logs
 const logger = require("./config/logger");
@@ -34,9 +35,10 @@ app.use(cors({ origin: process.env.CLIENT_URL }));
 app.use(express.json());
 
 // Add health check endpoint BEFORE urlsRouter — to prevent the :short_url in urlRoute greedily receives requests
-app.get("/healthz", (req, res) => res.status(200).json({ status: "ok" }));
+// app.get("/healthz", (req, res) => res.status(200).json({ status: "ok" }));
+app.use(indexRouter);
 
-app.use("", urlsRouter);
+app.use(urlsRouter);
 
 // 5. error handlers must be LAST
 app.use(notFoundHandler);
