@@ -24,7 +24,8 @@ router.get("/healthz", async (req, res, next) => {
 		}
 
 		health.status = health.mongodb === "unreachable" || health.redis === "unreachable" ? "degraded" : "ok";
-		const statusCode = health.status === "ok" ? 200 : 503;
+		// const statusCode = health.status === "ok" ? 200 : 503;
+		const statusCode = 503;
 		return res.status(statusCode).json(health);
 	} catch (error) {
 		next(error);
