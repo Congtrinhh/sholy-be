@@ -12,6 +12,7 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const connectDB = require("./config/db");
+const redis = require("./config/redis");
 const urlsRouter = require("./routes/urls");
 const indexRouter = require("./routes/index");
 
@@ -20,11 +21,28 @@ const logger = require("./config/logger");
 
 logger.info("App.js loaded");
 
+const helmet = require("helmet");
+const rateLimit = require("express-rate-limit");
+const { RedisStore } = require("rate-limit-redis");
+
 const tracingMiddleware = require("./middleware/tracing");
 const requestLogger = require("./middleware/requestLogger");
 const { notFoundHandler, globalErrorHandler } = require("./middleware/errorHandler");
 
 const app = express();
+
+// prevent xss (put helmet and rate limit before api routes)
+app.use(helmet());
+// Rate limiting — prevent abuse and DDoS: allow no more than 100 requests from one host within 10 mins
+const limiter = rateLimit({
+	windowMs: 10 * 60 * 1000, // 10 minutes
+	max: 100, // max 100 requests per IP per window
+	store: new RedisStore({
+		sendCommand: (...args) => redis.call(...args),
+	}),
+	message: { error: "Too many requests, please try again later." },
+});
+app.use(limiter);
 
 // 1. tracing must be first — everything else depends on traceId existing
 app.use(tracingMiddleware);
