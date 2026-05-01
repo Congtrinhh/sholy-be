@@ -3,7 +3,10 @@ const mongoose = require("mongoose");
 async function connectDB() {
 	try {
 		await mongoose.connect(process.env.MONGODB_URI);
-		console.log("MongoDB connected");
+		// temporarily log which host we connected to
+		logger.info("MongoDB connected", {
+			host: mongoose.connection.host,
+		});
 	} catch (err) {
 		console.error("MongoDB connection error:", err);
 		process.exit(1); // crash the app early if DB is unavailable
